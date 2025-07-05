@@ -1,3 +1,3 @@
-[submodule "frontend"]
-    path = ./frontend
-    url = https://github.com/Josh-The-Developapa/Cadera-frontend.git
+[submodule "cadera-backend"]
+	path = cadera-backend
+	url = git@github-cadera-backend:asiimwemmanuel/Cadera-backend.git
