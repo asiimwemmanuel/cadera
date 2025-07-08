@@ -41,3 +41,13 @@
 | Auth     | JWT (stateless)               |
 | Database | PostgreSQL                    |
 | Tooling  | Git, REST API, Postman, Figma |
+
+---
+
+### 🌐 Hosting
+
+| Component | Platform   | Details                |
+|-----------|------------|------------------------|
+| Frontend  | Vercel     | Static site deployment |
+| Backend   | Railway    | Managed Node.js server |
+| Database  | Supabase   | Hosted PostgreSQL      |
