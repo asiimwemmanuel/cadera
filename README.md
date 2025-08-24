@@ -15,7 +15,7 @@
 ### 👥 Team
 
 * **Joshua Mukisa** — Frontend Engineer
-* **Emmanuel Asiimwe** — Backend & Database Architrct
+* **Emmanuel Asiimwe** — Backend & Database Architect
 * **Albert Jordan** — UI/UX Designer
 
 ---
