@@ -37,9 +37,9 @@
 | Layer    | Tech                          |
 | -------- | ----------------------------- |
 | Frontend | React, Tailwind CSS           |
-| Backend  | NestJS, Prisma, Zod           |
+| Backend  | NestJS, Prisma                |
 | Auth     | JWT (stateless)               |
-| Database | PostgreSQL                    |
+| Database | PostgreSQL, Supabase          |
 | Tooling  | Git, REST API, Postman, Figma |
 
 ---
