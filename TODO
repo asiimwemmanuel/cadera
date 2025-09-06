@@ -1,0 +1,47 @@
+main:
+ - login:
+   . fix JWT cookie bug (done)
+   . ensure sessions work
+   . fix the 'requirement' of sign-in on reload (use localstorage)
+   . handle accounts, editing, PIN, changing passwords
+ - roles + perms
+   NOTE: users cannot access what the website does not fetch
+
+ - students page (done):
+   . implement the subject offerings (right now, it seems the entire catalog is being fetched) (done)
+   . edit student modal momentarily disappears (done)   > "edit profile" modal
+     . prefill fields with queried data (student details section)
+     . edit student fields with: name, parent emails, "id (school pay code, same thing)", subject offering (see below)     . fetch all classes and the number of students (requires backend editing)
+     . the subject selection for that class depends on the above
+   > "add new student" modal
+     . largely the same as above, except the backend endpoints are different (creating new data)
+     . underlying UI is the same
+     . this modal also somehow disappears momentarily; needs fixing.
+
+- teachers page: (almost done)
+  . add teacher functionality necessary
+- classes page: (i'm getting cooked)
+ - intended functionality:
+   . edit only
+- grades page: (done, mostly)
+- comments page:
+- reports page:
+- school page:
+- settings page:
+
+THEN do it all again for different roles
+
+THEN handle promotions
+
+---- non-MVP ----
+
+other:
+add sender field to the reports page
+fix student IDs in report modals
+add class average to class service (for main page)
+
+optimisation:
+cache database data
+
+testing:
+ensure all possible cases of reports work
