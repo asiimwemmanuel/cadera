@@ -1,3 +1,50 @@
+-------------------------------------
+16/09/25 todo list
+
+1. role seperation for teachers
+2. email system on teacher account creation
+3. promotion system
+
+
+other:
+speed up queries
+
+-------------------------------------
+
+-------------------------------------
+THE GREAT LOCK-IN OF 2025
+> login: (non MVP)
+ - on login page, also check OTP.
+ - if otp is valid, and correct, and for provided mail, then redirect to change password
+ - make sure that even if OTP is correct but expired or mustchangepassword is false, it can't work
+ - have a seperate section for OTP (for user comprehension)
+
+password resetting:
+if teacher, then 2 appproaches
+
+approach 1:
+1. send request to admin's email. he opens link, which prompts to authorize.
+2. next time the teacher tries to access, he is redirected to reset password
+
+approach 2: do the whole process but for user rather than admin.
+
+choose whichever is easier to implement, within reasonable security.
+
+> role seperation
+1. grades
+2. comments
+3. reports (done)
+
+> hosting
+1. onrender
+2. database + server monthly costs
+3. final yearly figure
+
+> other
+1. make reports output a timestamped zip
+
+-------------------------------------
+
 main:
  - login:
    . fix JWT cookie bug (done)
@@ -19,26 +66,39 @@ main:
      . this modal also somehow disappears momentarily; needs fixing.
 
 - teachers page: (almost done)
-  . add teacher functionality necessary
 - classes page: (i'm getting cooked)
  - intended functionality:
    . edit only
 - grades page: (done, mostly)
-- comments page:
-- reports page:
-- school page:
+- comments page: (done, mostly)
+- reports page: (done, mostly)
+- school page: (almost done)
+  . make promotions
 - settings page:
 
-THEN do it all again for different roles
+change all avatars to placeholder nothings lol
 
-THEN handle promotions
+misc:
+ - fix styles via figma
+ - print bulk all at once, save as zip folder (also zip if multiple individuals)
+ - edit mode
+ - forgot password
+
+THEN do it all again for different roles (what the 'mostly' means)
+
+THEN handle promotions (gonna take time)
 
 ---- non-MVP ----
 
 other:
+fix double API calls (weird)
+top classes (front page)
+set up prisma acceleration
 add sender field to the reports page
+edit PINs
 fix student IDs in report modals
 add class average to class service (for main page)
+ensure all verbose logging only happens in dev (using env vars)
 
 optimisation:
 cache database data
