@@ -1,13 +1,34 @@
 -------------------------------------
 16/09/25 todo list
 
+TOP LEVEL
 1. role seperation for teachers
-2. email system on teacher account creation
-3. promotion system
+2. email system on teacher account creation (Emmanuel & Albert)
+3. promotion system (Emmanuel)
 
+WEEK 1 - MVP completion
+add actual teacher data (Emmanuel)
+add student data (Joshua & Emmanuel)
+implement forgot passowrd logic (Emmanuel)
+add top class data (Emmanuel)
+ - add class average to class service (for main page)
+report zipping (Joshua)
 
-other:
-speed up queries
+WEEK 2
+
+WEEK 3 - misc & testing
+
+internal date of ship: 6th Oct
+
+OTHER:
+
+1. speed up queries
+ - fix double API calls (weird) [Emmanuel]
+ - simple caching & memoization [Joshua]
+ - prisma acceleration (https://www.prisma.io/accelerate) [Emmanuel]
+
+additional features (later)
+edit mode
 
 -------------------------------------
 
@@ -77,31 +98,3 @@ main:
 - settings page:
 
 change all avatars to placeholder nothings lol
-
-misc:
- - fix styles via figma
- - print bulk all at once, save as zip folder (also zip if multiple individuals)
- - edit mode
- - forgot password
-
-THEN do it all again for different roles (what the 'mostly' means)
-
-THEN handle promotions (gonna take time)
-
----- non-MVP ----
-
-other:
-fix double API calls (weird)
-top classes (front page)
-set up prisma acceleration
-add sender field to the reports page
-edit PINs
-fix student IDs in report modals
-add class average to class service (for main page)
-ensure all verbose logging only happens in dev (using env vars)
-
-optimisation:
-cache database data
-
-testing:
-ensure all possible cases of reports work
