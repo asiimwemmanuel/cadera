@@ -1,29 +1,24 @@
 -------------------------------------
 16/09/25 todo list
 
-TOP LEVEL
-1. role seperation for teachers
-2. email system on teacher account creation (Emmanuel & Albert)
-3. promotion system (Emmanuel)
+WEEK 1 - 
+role seperation completion (Emmanuel)
+promotion system (Emmanuel)
+report zipping (Joshua)
+email system on teacher account creation (Joshua & Albert)
+implement forgot passowrd logic (Joshua)
 
-WEEK 1 - MVP completion
-add actual teacher data (Emmanuel)
-add student data (Joshua & Emmanuel)
-implement forgot passowrd logic (Emmanuel)
+WEEK 2 - data integration
+add teacher & student data (Emmanuel)
 add top class data (Emmanuel)
  - add class average to class service (for main page)
-report zipping (Joshua)
-
-WEEK 2
-
-WEEK 3 - misc & testing
 
 internal date of ship: 6th Oct
 
 OTHER:
 
 1. speed up queries
- - fix double API calls (weird) [Emmanuel]
+ - fix double API calls (weird) [Emmanuel] (done)
  - simple caching & memoization [Joshua]
  - prisma acceleration (https://www.prisma.io/accelerate) [Emmanuel]
 
