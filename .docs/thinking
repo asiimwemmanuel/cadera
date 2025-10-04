@@ -1,0 +1,24 @@
+--- adding edit functionality to grades page --- 
+
+1. develop functionality for editing.
+2. develop UI for editing.
+
+BACKEND - done
+the API function should do the following:
+
+if mid exists, but end does not, final = mid
+if end exists and mid also exists, final = end if end exists but mid does not, throw error
+
+FRONTEND
+simple edit button + hooks
+button only displays when user_role is TEACHER. otherwise, do not display.
+do not allow final to be editeable, ever.
+
+refer to the implementation in comments as guidelines.
+
+--- later, adjust sidebar ---
+simply, only display subjects section, when contrasting with original subjectsidebar.
+
+--- misc --- the main comments panel should know whether or not an entity has been selected from subject sidebar 
+(new prop) display something if and only if it has. otherwise, put some reasonable placeholder.
+

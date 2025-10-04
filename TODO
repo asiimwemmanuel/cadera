@@ -1,6 +1,9 @@
 -------------------------------------
 16/09/25 todo list
 
+(non) misc
+implement midterm/eot via a simple pipeline appendage in the subject record at report time
+
 WEEK 1 - 
 role seperation completion (Emmanuel)
 promotion system (Emmanuel)
@@ -21,6 +24,7 @@ OTHER:
  - fix double API calls (weird) [Emmanuel] (done)
  - simple caching & memoization [Joshua]
  - prisma acceleration (https://www.prisma.io/accelerate) [Emmanuel]
+2. fix cookie system with browser integration [Emmanuel]
 
 additional features (later)
 edit mode

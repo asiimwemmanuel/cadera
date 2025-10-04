@@ -14,21 +14,21 @@
 
 ### 👥 Team
 
-* **Joshua Mukisa** — Frontend Engineer
-* **Emmanuel Asiimwe** — Backend & Database Architect
-* **Albert Jordan** — UI/UX Designer
+- **Joshua Mukisa** — Frontend Engineer
+- **Emmanuel Asiimwe** — Backend & Database Architect
+- **Albert Jordan** — UI/UX Designer
 
 ---
 
 ### 🎯 Capabilities
 
-* Manage student and teacher profiles
-* Assign students to classes, subjects
-* Track academic performance
-* Generate printable report cards
-* Role-based access: Admin, Teacher, Student
-* Export data (PDF, CSV/Excel)
-* Audit and validate historical academic records
+- Manage student and teacher profiles
+- Assign students to classes, subjects
+- Track academic performance
+- Generate printable report cards
+- Role-based access: Admin, Teacher, Student
+- Export data (PDF, CSV/Excel)
+- Audit and validate historical academic records
 
 ---
 
@@ -46,8 +46,8 @@
 
 ### 🌐 Hosting
 
-| Component | Platform   | Details                |
-|-----------|------------|------------------------|
-| Frontend  | Vercel     | Static site deployment |
-| Backend   | Railway    | Managed Node.js server |
-| Database  | Supabase   | Hosted PostgreSQL      |
+| Component | Platform | Details                |
+| --------- | -------- | ---------------------- |
+| Frontend  | Vercel   | Static site deployment |
+| Backend   | Railway  | Managed Node.js server |
+| Database  | Supabase | Hosted PostgreSQL      |

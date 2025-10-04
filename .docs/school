@@ -1,0 +1,30 @@
+MACRO CHANGES
+goal: connect to backend & ensure UI meets requirements
+REMOVE FICTITIOUS DATA.
+
+1. promotion reserved for headteacher (read localStorage)
+ - overhaul promote submodal
+ - either 'promote school' or 'promote individuals'
+ - look at student controller for fetching
+ - implement redundancy. this is a big operation
+
+2. promotion func (for class & individual) - done
+
+3. create staff member: can create either Admin or teacher (see schema)
+ - use toggle for the role
+ - if teacher, assign to class. otherwise, don't display 'assign to class'
+ - use extra controller in class.controller for catalog
+
+4. fetch all staff
+ - use teacher endpoints, probably get complete profile
+ - 'classes' is count of total in assignment
+
+files:
+main management pages (& subcomponents)
+collection backend
+teacher backend
+student backend
+api
+
+--- smaller tasks ---
+1. connect the promote submodal to the API

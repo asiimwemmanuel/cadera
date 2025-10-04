@@ -1,0 +1,50 @@
+// Example usage with proper DTO structure:
+/*
+// 1. Dry run promotion for entire class with validation
+try {
+  const dryRunResult = await promotionAPI.dryRun({
+    classId: 'class-123',
+    operatorId: 'user-456',
+    allowGraduationProceed: true,
+    notes: 'Testing end-of-year promotion'
+  });
+  console.log('Dry run completed:', dryRunResult);
+} catch (error) {
+  console.error('Validation error:', error.message);
+}
+
+// 2. Hold back specific students with detailed reasons
+await promotionAPI.holdBackStudents(
+  ['student-1', 'student-2'], 
+  'user-456',
+  { 
+    'student-1': 'Poor attendance - 45% absence rate', 
+    'student-2': 'Academic performance - failing 3+ subjects' 
+  },
+  { allowGraduationProceed: false }
+);
+
+// 3. Promote class with exclusions and proper error handling
+try {
+  const result = await promotionAPI.promoteClass('class-123', 'user-456', {
+    heldBackIds: ['student-1', 'student-2'],
+    allowGraduationProceed: true,
+    notes: 'End of year promotion - Grade 12 to graduation',
+    heldBackReasons: {
+      'student-1': 'Disciplinary issues',
+      'student-2': 'Academic remediation needed'
+    }
+  });
+  console.log(`Promoted ${result.promoted.length}, graduated ${result.graduated.length}`);
+} catch (error) {
+  console.error('Promotion failed:', error.message);
+}
+
+// 4. Get detailed promotion history with filters
+const recentLogs = await promotionAPI.getLogs({
+  fromCollectionId: 'collection-123',
+  dryRun: false, // Only real promotions
+  fromDate: '2024-01-01',
+  toDate: '2024-12-31'
+});
+*/
