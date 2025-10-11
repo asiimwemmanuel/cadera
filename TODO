@@ -4,9 +4,10 @@
 (non) misc
 implement midterm/eot via a simple pipeline appendage in the subject record at report time
 
-WEEK 1 - 
-role seperation completion (Emmanuel)
+WEEK 1 - MVP completion 
+role seperation completion (Emmanuel) - complete
 promotion system (Emmanuel)
+ - need a way to access archives: students page, sort by collections, parse archivedData
 report zipping (Joshua)
 email system on teacher account creation (Joshua & Albert)
 implement forgot passowrd logic (Joshua)
