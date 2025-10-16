@@ -1,24 +1,16 @@
---- adding edit functionality to grades page --- 
+--- reports function adjustment ---
+before generating reports, go through ACTIVE students, ensure there's nothing missing.
+ - check their offerings, and ensure they have 'necessary'
+   . if MT, all students should have ONLY midterm entries, and no EOT entries.
+   . if EOT, all students should have BOTH entries in grade records.
+   . no comments should be missing: if a subject is offered, 
+ - add flag (midterm/endofterm)
 
-1. develop functionality for editing.
-2. develop UI for editing.
+--- later, adjust sidebar --- simply, only display subjects section, when contrasting with original subjectsidebar.
 
-BACKEND - done
-the API function should do the following:
+--- misc ---
 
-if mid exists, but end does not, final = mid
-if end exists and mid also exists, final = end if end exists but mid does not, throw error
+the main comments panel should know whether or not an entity has been selected from subject sidebar (new prop) display 
+something if and only if it has. otherwise, put some reasonable placeholder.
 
-FRONTEND
-simple edit button + hooks
-button only displays when user_role is TEACHER. otherwise, do not display.
-do not allow final to be editeable, ever.
-
-refer to the implementation in comments as guidelines.
-
---- later, adjust sidebar ---
-simply, only display subjects section, when contrasting with original subjectsidebar.
-
---- misc --- the main comments panel should know whether or not an entity has been selected from subject sidebar 
-(new prop) display something if and only if it has. otherwise, put some reasonable placeholder.
-
+remove memoization from any component displaying live data (commentsTable, for example)
