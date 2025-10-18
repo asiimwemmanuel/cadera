@@ -8,7 +8,7 @@ try {
     allowGraduationProceed: true,
     notes: 'Testing end-of-year promotion'
   });
-  console.log('Dry run completed:', dryRunResult);
+  console.debug('Dry run completed:', dryRunResult);
 } catch (error) {
   console.error('Validation error:', error.message);
 }
@@ -35,7 +35,7 @@ try {
       'student-2': 'Academic remediation needed'
     }
   });
-  console.log(`Promoted ${result.promoted.length}, graduated ${result.graduated.length}`);
+  console.debug(`Promoted ${result.promoted.length}, graduated ${result.graduated.length}`);
 } catch (error) {
   console.error('Promotion failed:', error.message);
 }
