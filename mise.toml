@@ -2,3 +2,21 @@
 bun = "1.2.21"
 
 # add ts-eslint pinning INSIDE THE package.json, NOT HERE.
+
+[tasks.backend]
+description = "Start backend dev server"
+run = "bun run start:dev"
+dir = "cadera-backend"
+
+[tasks.frontend]
+description = "Start frontend dev server"
+run = "bun run dev"
+dir = "cadera-frontend"
+
+[tasks.dev]
+description = "Start both backend & frontend servers"
+run = [
+  { task = "backend" },
+  { task = "frontend" }
+]
+
