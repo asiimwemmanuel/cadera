@@ -10,23 +10,22 @@
 
 ## 🚀 WEEK 1 — MVP COMPLETION
 
-| Task                                     | Assignee        | Status         | Notes                                                                            |
-| ---------------------------------------- | --------------- | -------------- | -------------------------------------------------------------------------------- |
-| Role separation completion               | Emmanuel        | ✅ Complete    |                                                                                  |
-| Promotion system                         | Emmanuel        | 🚧 In Progress | Needs archive access on students page: sort by collections, parse `archivedData` |
-| Report zipping                           | Joshua          | 🚧 In Progress |                                                                                  |
-| Email system on teacher account creation | Joshua & Albert | ⏳ Pending     |                                                                                  |
-| Implement forgot password logic          | Joshua          | ⏳ Pending     |                                                                                  |
+| Task                                     | Assignee        | Status      | Notes |
+| ---------------------------------------- | --------------- | ----------- | ----- |
+| Role separation completion               | Emmanuel        | ✅ Complete |       |
+| Promotion system                         | Emmanuel        | ✅          |       |
+| Report zipping                           | Joshua          | ✅          |       |
+| Email system on teacher account creation | Joshua & Albert | ⏳ Pending  |       |
+| Implement forgot password logic          | Joshua          | ⏳ Pending  |       |
 
 ---
 
 ## 🔗 WEEK 2 — DATA INTEGRATION
 
-| Task                                               | Assignee | Status |
-| -------------------------------------------------- | -------- | ------ |
-| Add teacher & student data                         | Emmanuel | ⏳     |
-| Add top class data                                 | Emmanuel | ⏳     |
-| Add class average to class service (for dashboard) | —        | ⏳     |
+| Task                       | Assignee | Status |
+| -------------------------- | -------- | ------ |
+| Add teacher & student data | Emmanuel | ⏳     |
+| Add top class data         | Emmanuel | ⏳     |
 
 > **Internal target ship date:** `6th Oct`
 
