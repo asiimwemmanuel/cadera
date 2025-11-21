@@ -1,0 +1,217 @@
+# Promotion & archival manifesto — end-to-end
+
+This is the compact, unambiguous design manifesto for promotion, archives (exos), held-back behavior and final-year handling. It respects your constraints: **no new classes**, **do not change class subject offerings**, **exos are backend-only and cannot be requested**, **promotion only runs on the active collection**, **dryRun available**, and **student rows for graduates are removed from the active table and moved to a separate model**.
+
+---
+
+## Core philosophy — one line
+
+Student _history_ is composed of immutable snapshots (subject records, reports, exos). Promotion mutates **pointers** (the active student → collection/class) and **creates** new skeleton records; it never mutates existing historical records. Graduates are removed from the active roster and preserved as archival husks.
+
+---
+
+## Fundamental invariants
+
+1. **Immutable history**: `SubjectRecord`, `StudentReport`, `ArchiveStudent` entries are append-only and never edited (except to correct explicit mistakes through a controlled “correction” flow).
+2. **Single active collection**: exactly one `Collection.isActive = true` at any time. Promotions only run from that collection.
+3. **No class mutation**: `ClassSubject[]` is authoritative. Do not alter class subject offerings during promotion.
+4. **Exos (ArchiveStudent)**: created **only** when a student is successfully promoted (ordinary promotion or graduation). Exos are back-end-only; no public API returns them.
+5. **Held-back: boolean**: active `Student` has an optional `heldBack` boolean (and optional `heldBackHistory` logged in `PromotionLog`) — held-back students do **not** generate an exo.
+6. **Graduation removal**: when a student reaches final year and has no next class, create the archive (exo) and a `GraduatedStudent`/`Husk` record, then remove the `Student` row from the active table (subject to referential integrity rules described below).
+
+---
+
+## Roles of main data structures (short)
+
+- `Student` — active roster row; mutable pointer fields (`classId`, `collectionId`), `heldBack` boolean, other active metadata.
+- `ArchiveStudent` — backend-only snapshot (exo). Contains denormalized snapshot + pointers to historical row ids.
+- `PromotionLog` — audit for each promotion run (which students promoted, held back, reason, operator, timestamp).
+- `GraduatedStudent` / `Husk` — minimal persistent model for final/removed students (keeps identity and lightweight metadata).
+- `SubjectRecord` / `StudentReport` — immutable academic history entries.
+
+---
+
+## Promotion run: deterministic, transactional, idempotent
+
+### Pre-conditions
+
+- Input: `classId` (or `studentIds[]`), optional `heldBackIds[]`, `operatorId`, `dryRun` flag.
+- Reject run if `fromCollection.isActive == false`.
+- Reject run if any targeted student is not in the active collection.
+- Reject run if destination class(es) do not exist **unless** operator supplied explicit opt-in `allowGraduationProceed = true` (see final-year handling).
+
+### Transactional steps (atomic)
+
+1. **Compute target collection** (trimester arithmetic); `upsert` new `Collection(year,term)` and atomically flip `isActive` flags.
+2. **Build target sets**:
+   - `toPromote = (classStudents \ heldBackIds) OR supplied studentIds`
+   - `toHold = heldBackIds`
+
+3. **For each `s` in `toPromote`**:
+   - Confirm destination class exists; if not and `allowGraduationProceed=false` → abort whole run.
+   - Create `ArchiveStudent` (exo) capturing full snapshot (see shape below).
+   - Compute `offeringsToCreate = s.subjectOfferings ∩ destClass.subjectIds`.
+   - `droppedOfferings = s.subjectOfferings - destClass.subjectIds`; store into `ArchiveStudent.archivedData.droppedOfferings`.
+   - Upsert skeleton `SubjectRecord` rows for `offeringsToCreate` for new collection (idempotent via unique constraints).
+   - Update `student.classId = destClassId`, `student.collectionId = newCollection.id`.
+   - Mark in `PromotionLog` as promoted.
+
+4. **For each `s` in `toHold`**:
+   - Do **not** create `ArchiveStudent`.
+   - Write `PromotionLog` entry with heldBack flag and reason.
+   - Set `student.heldBack = true` and optionally append entry to `PromotionLog.heldBackHistory`.
+
+5. **For final-year students (if opt-in allowed)**:
+   - Create `ArchiveStudent` with `promotionOutcome = GRADUATED`.
+   - Create `GraduatedStudent` (`Husk`) record containing minimal identity + reference to the exo.
+   - Remove the `Student` row from the `Student` table.
+   - Write `PromotionLog` entry with `FINAL_YEAR_NO_NEXT_CLASS`.
+
+6. **Commit**.
+
+**Idempotency**: use `find-or-create` semantics for `Collection` and `SubjectRecord` skeleton upserts; `PromotionLog` should be unique per `operatorId` + `fromCollectionId` + `runId` to avoid duplicate runs. Re-running the same inputs becomes a no-op.
+
+---
+
+## Exact archival (exo) shape — minimal required fields
+
+Keep exo records compact but self-contained enough to reconstruct the student's state:
+
+```
+ArchiveStudent {
+  id: String (cuid)
+  studentId: String
+  collectionId: String        // origin collection (pre-promotion)
+  createdAt: DateTime
+  archivedData: {
+    name, dob, parentEmails,
+    classId, subjectOfferings: [subjectId],
+    subjectRecordIds: [subjectRecordId],     // old collection record ids
+    studentReportIds: [...],
+    droppedOfferings: [ { subjectId, reason } ],
+    avgGPA?,
+    promotionOutcome: "PROMOTED" | "GRADUATED"
+  }
+}
+```
+
+- `ArchiveStudent` rows are **append-only**, backend-only (no public query endpoint).
+- Keep a `@@unique([collectionId, studentId])` rule.
+
+---
+
+## GraduatedStudent (husk) model
+
+Create a separate table for removed students:
+
+```
+GraduatedStudent {
+  id: String (cuid)          // new id
+  sourceStudentId: String    // original Student.id — retained for traceability
+  archivedExoId: String
+  name, dob, minimalMetadata...
+  createdAt: DateTime
+}
+```
+
+**Flow**: after exo is created, insert a `GraduatedStudent` and then delete the `Student` row from active table. `ArchiveStudent` and `PromotionLog` retain reconstruction ability.
+
+---
+
+## Referential integrity / schema requirements (necessary changes)
+
+To safely delete `Student` rows while preserving history, historical tables must **not** be cascaded away by deleting a `Student`. Choose one of the following approaches (manifesto requires you pick):
+
+1. **Preferable: Historical records are independent**
+   - Historical tables (`SubjectRecord`, `StudentReport`, `SubjectComment`, etc.) **must not** have `ON DELETE CASCADE` to `Student`. Use `ON DELETE SET NULL` or no FK enforcement for those historical relations (store `studentId` as plain string and treat as a label rather than strict relational FK).
+   - This ensures deleting `Student` leaves history intact.
+
+2. **Alternative: Move/retarget child rows**
+   - Before deleting `Student`, update historical child rows to attach to `GraduatedStudent` — heavier and more complex.
+
+Recommendation: change historical table FK behavior so history persists independently (option 1). This is a one-time schema policy change and consistent with the manifesto that history is immutable and independent.
+
+---
+
+## Held-back history & multi-year holds
+
+- `Student.heldBack: boolean` (current-year flag) — held-backs don’t generate exos.
+- Record every held-back event in `PromotionLog.heldBackHistory` with year/term/operator/reason. This preserves an auditable trail of repeated holds without adding exos.
+- Optionally provide a UI that aggregates `PromotionLog` entries per student to show multi-year retention history.
+
+---
+
+## Final-year rules (explicit)
+
+- **Default**: If no destination class exists, the promotion run **fails** unless operator toggles `allowGraduationProceed`. This matches your “missing class = DB anomaly” stance.
+- **If `allowGraduationProceed` is set**:
+  - Create `ArchiveStudent` with `promotionOutcome = GRADUATED`.
+  - Create `GraduatedStudent` row.
+  - Remove the `Student` row from active roster (subject to non-cascading history rules).
+  - Write `PromotionLog` entry with `FINAL_YEAR`.
+
+- There is **no** held-back status on a graduated/husk student.
+
+---
+
+## Access control & API constraints
+
+- **Exos are backend-only**: do not expose `ArchiveStudent` via public endpoints; only privileged system/admin jobs or offline analytics can read them.
+- `GraduatedStudent` table can have admin-only read access for alumni lists or external export jobs.
+- `PromotionLog` is auditable and exposed to users with reporting/audit permission.
+
+---
+
+## Concurrency & operational safety
+
+- Use an advisory lock keyed to `fromCollectionId` (and/or `classId`) to ensure only one promotion at a time for a given collection.
+- Run promotion in a single serializable transaction where possible; use batch upserts for skeleton `SubjectRecord` creation.
+- Provide `dryRun=true` mode that computes the whole delta and returns a structured report (no DB writes). This is mandatory before any production run.
+
+---
+
+## Testing plan (practical & fast)
+
+1. **DryRun smoke**: run `dryRun` against production-like snapshot. Validate computed `toPromote`, `toHold`, `droppedOfferings`.
+2. **Minimal fixture**: 10 classes, 50 students with edge cases — held back, subject mismatch, final-year. Run full transaction on sandbox database.
+3. **Property checks** (post-run assertions):
+   - old `SubjectRecord` rows unchanged
+   - new `SubjectRecord` skeletons created only for `toPromote`
+   - `ArchiveStudent` count == number promoted + graduates
+   - `PromotionLog` contains expected lists
+
+4. **Concurrency test**: attempt two parallel promotion runs — verify advisory lock prevents duplicate run.
+5. **Re-run idempotence**: re-run identical `dryRun` then identical real run — confirm no duplicate skeletons or double-archives.
+
+---
+
+## Minimal actionable schema changes (summary)
+
+- Add `ArchiveStudent` (exo) table.
+- Add `PromotionLog` table with heldBackHistory.
+- Add `GraduatedStudent` (Husk) table.
+- Adjust historical table FK deletion behavior to **prevent cascades** (onDelete: SET NULL or drop FK enforcement for history rows).
+- Add `Student.heldBack` boolean.
+
+---
+
+## Operational checklist for release
+
+- [ ] Implement `dryRun` compute function and unit tests.
+- [ ] Add `ArchiveStudent`, `PromotionLog`, `GraduatedStudent` migrations.
+- [ ] Change historical FKs to non-cascading behavior.
+- [ ] Implement advisory lock in promotion service.
+- [ ] Add admin UI for Promotion dry-run reports & PromotionLog review.
+- [ ] Create a small seed fixture for promotion testing and CI checks.
+- [ ] Document exact operator flags (`allowGraduationProceed`) and default policies in ops manual.
+
+---
+
+## Why this preserves your design principles
+
+- **Atomicity**: promotion runs are transactional; history is never mutated — only pointers and skeletons are created.
+- **Clarity of intent**: exos are backend-only immutable snapshots; held-backs are visible on the active student and logged in `PromotionLog`.
+- **Non-destructive graduation**: student is removed from active table but history remains reconstructable via `ArchiveStudent` + `GraduatedStudent`.
+- **Minimal churn to class model**: class-subjects remain unchanged; students’ subject continuity is enforced via intersection logic and audited drops.
+
+---

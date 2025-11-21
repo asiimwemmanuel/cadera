@@ -1,156 +1,94 @@
----
-# ✅ 16/09/25 TODO List
----
+# ✨ TODO.md — MVP + Features + Bugs ✨
 
-## 🎯 High-Level
+## 🏁 MVP Completion — Target: 24th Nov
 
-- Implement midterm/EOT via a simple pipeline appendage in the subject record at report time — ⏳
+- **Supabase DB backups:** weekly, include rollback (DB-side).
+- **Data migration:** SPC per student, class entries in admin/students.
+- **Midterm handling:** allow blank description; modify mark entry:
+  - Mid only → final = mid
+  - Mid + end → final = average
+  - Otherwise → final = null
 
----
-
-## 🚀 WEEK 1 — MVP COMPLETION
-
-| Task                                     | Assignee        | Status      | Notes |
-| ---------------------------------------- | --------------- | ----------- | ----- |
-| Role separation completion               | Emmanuel        | ✅ Complete |       |
-| Promotion system                         | Emmanuel        | ✅          |       |
-| Report zipping                           | Joshua          | ✅          |       |
-| Email system on teacher account creation | Joshua & Albert | ⏳ Pending  |       |
-| Implement forgot password logic          | Joshua          | ⏳ Pending  |       |
+- **Redesign reports template:** comment limit 500 chars / ~20 words.
+- **CI/CD improvements:** local DB setup to avoid mutating production.
 
 ---
 
-## 🔗 WEEK 2 — DATA INTEGRATION
+## 🐛 BUGFIXES
 
-| Task                       | Assignee | Status |
-| -------------------------- | -------- | ------ |
-| Add teacher & student data | Emmanuel | ⏳     |
-| Add top class data         | Emmanuel | ⏳     |
-
-> **Internal target ship date:** `6th Oct`
+- Performance overview div (main page) — ✅ done.
+- Review UX for data/table labels.
+- Performance overview charts.
+- Comments page: prevent HEAD from editing teacher comments.
 
 ---
 
-## ⚙ OTHER: Performance & Infra
+## 🚀 FUTURE / NON-MVP
 
-### 1. Speed Up Queries
-
-| Task                         | Assignee | Status         |
-| ---------------------------- | -------- | -------------- |
-| Fix double API calls         | Emmanuel | ✅ Done        |
-| Simple caching & memoization | Joshua   | 🚧 In Progress |
-| Prisma Accelerate            | Emmanuel | 🚧 In Progress |
-
-### 2. Fix cookie system with browser integration — 🚧 In Progress (Emmanuel)
+- Access archived students (target pre-Jan '26).
+- Add account name to report logs.
 
 ---
 
-## 🧩 Additional Features (Later)
+## 📊 High-Level / Other Implementation Notes
 
-- Edit mode — ⏳ Pending
+- Midterm/EOT pipeline appendage at report time. ⚡
+- Email system on teacher account creation — ⏳ Pending.
+- Forgot password logic — ⏳ Pending.
+- Student demotion — ⏳ Pending.
 
----
+### Students Page
 
-# 🔐 THE GREAT LOCK-IN OF 2025
+- Subject offerings per class — ✅ Done.
+- Prefill fields — ⏳ Pending.
+- Editable fields (name, parent email, ID, subject offering) — ⏳ Pending.
+- Fetch classes + student count — ⏳ Pending.
+- Add New Student modal — ⏳ Pending; flicker bug ⚠️
 
-## Login Flow (Non-MVP) — ⏳ Pending
+### Teachers / Classes / Grades / Reports
 
-- OTP validation on login page
-- OTP must match email and:
-
-  - Not expired
-  - `mustChangePassword === true`
-
-- Valid OTP → Force password change screen
-- Separate **OTP UI section**
-
-### Password Reset Logic — ⏳ Design Pending
-
-**If Teacher:**
-
-| Approach            | Status | Notes                                                       |
-| ------------------- | ------ | ----------------------------------------------------------- |
-| Admin-approval flow | ⏳     | Request → Admin email → Approve → Force-reset on next login |
-| Self-service flow   | ⏳     | Same system but scoped to user only                         |
-
-> Choose based on fastest secure implementation.
+- Teachers Page — almost done.
+- Classes Page — in dev, edit-only.
+- Grades Page — mostly done.
+- Comments Page — mostly done.
+- Reports Page — mostly done.
+- School Page — almost done (promotion logic pending).
+- Settings Page — pending; replace avatars with placeholders 🖼️.
 
 ---
 
-## 🎭 Role Separation — Scope
+## ⚡ Performance & Infra
 
-| Module   | Status  |
-| -------- | ------- |
-| Grades   | ⏳      |
-| Comments | ⏳      |
-| Reports  | ✅ Done |
-
----
-
-## ☁ Hosting Planning — ⏳ Pending
-
-- OnRender deployment
-- DB + server monthly breakdown
-- Annual cost projection
+- Fix double API calls — ✅ Done.
+- Simple caching & memoization — ⏳ In Progress.
+- Prisma Accelerate — ⏳ In Progress.
+- Cookie system + browser integration — ⏳ In Progress.
 
 ---
 
-## 📦 Other — ⏳ Pending
+## 🔐 Auth & Role Separation
 
-- Reports should be exported as **timestamped ZIP**
+- JWT cookie bug — ✅ Done.
 
----
+- Session persistence — ⏳ In Progress.
 
-# 🧠 MAIN IMPLEMENTATION NOTES
+- Prevent login requirement on reload (localStorage) — ⏳ In Progress.
 
-### Login & Auth
+- Role separation modules:
+  - Grades — ⏳ Pending
+  - Comments — ⏳ Pending
+  - Reports — ✅ Done
 
-| Task                                               | Status |
-| -------------------------------------------------- | ------ |
-| Fix JWT cookie bug                                 | ✅     |
-| Ensure session persistence                         | 🚧     |
-| Prevent login requirement on reload (localStorage) | 🚧     |
-| Account handling: PIN, change password, edit       | ⏳     |
-
-### Roles + Permissions
-
-> Security enforced by **data not being fetched** — ongoing policy
+- Users cannot access data not fetched (enforced backend).
 
 ---
 
-## 👨‍🎓 Students Page — ✅ Mostly done
+## 🏗️ Hosting Planning
 
-| Item                                                      | Status |
-| --------------------------------------------------------- | ------ |
-| Subject offerings limited per class                       | ✅     |
-| "Edit profile" modal flicker fix                          | ✅     |
-| Prefill fields                                            | ⏳     |
-| Editable fields: name, parent email, ID, subject offering | ⏳     |
-| Fetch classes + student count (backend change)            | ⏳     |
-
-### Add New Student Modal
-
-- UI same as edit flow — ⏳
-- Modal flicker bug still present — 🚧 Needs fixing
+- OnRender deployment 🌐
+- DB + server monthly cost 💰
+- Annual cost projection 📈
 
 ---
 
-## 👩‍🏫 Teachers Page — 🚧 Almost done
-
-## 🏫 Classes Page — 🚧 In Development ("getting cooked")
-
-> Target: **Edit-only functionality**
-
-## 🧮 Grades Page — ✅ Mostly done
-
-## 💬 Comments Page — ✅ Mostly done
-
-## 📑 Reports Page — ✅ Mostly done
-
-## 🎓 School Page — 🚧 Almost done (promotions logic pending)
-
-## ⚙ Settings Page — ⏳
-
-- Replace all avatars with placeholders
-
----
+✅ **Non-Misc Addendum:** Implement midterm/EOT via simple pipeline appendage at report time.
