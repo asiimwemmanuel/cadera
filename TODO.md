@@ -2,24 +2,25 @@
 
 ## 🏁 MVP Completion — Target: 24th Nov
 
-- **Supabase DB backups:** weekly, include rollback (DB-side).
-- **Data migration:** SPC per student, class entries in admin/students.
-- **Midterm handling:** allow blank description; modify mark entry:
+- **Supabase DB backups:** weekly, include rollback (DB-side). - ✅ done
+- **Data migration:** SPC per student, class entries in admin/students. - ✅ done
+- **CI/CD improvements:** local DB setup to avoid mutating production.
+- **Midterm handling:** allow blank description; modify mark entry: - ✅ done
   - Mid only → final = mid
   - Mid + end → final = average
   - Otherwise → final = null
 
-- **Redesign reports template:** comment limit 500 chars / ~20 words.
-- **CI/CD improvements:** local DB setup to avoid mutating production.
+- **Redesign reports template:** comment limit 50 words.
 
 ---
 
 ## 🐛 BUGFIXES
 
 - Performance overview div (main page) — ✅ done.
-- Review UX for data/table labels.
-- Performance overview charts.
-- Comments page: prevent HEAD from editing teacher comments.
+- Review UX for data/table labels. - ✅ done
+- Performance overview charts. - ✅ done
+- Comments page: prevent HEAD from editing teacher comments. - ✅ done
+- Students page: sticky scrollbar makes last entry hard to read. - ✅ done
 
 ---
 
@@ -60,9 +61,9 @@
 ## ⚡ Performance & Infra
 
 - Fix double API calls — ✅ Done.
-- Simple caching & memoization — ⏳ In Progress.
-- Prisma Accelerate — ⏳ In Progress.
-- Cookie system + browser integration — ⏳ In Progress.
+- Simple caching & memoization — done
+- Prisma Accelerate — done.
+- Cookie system + browser integration — done
 
 ---
 
@@ -70,9 +71,9 @@
 
 - JWT cookie bug — ✅ Done.
 
-- Session persistence — ⏳ In Progress.
+- Session persistence — ✅ done.
 
-- Prevent login requirement on reload (localStorage) — ⏳ In Progress.
+- Prevent login requirement on reload (localStorage) — done
 
 - Role separation modules:
   - Grades — ⏳ Pending
@@ -90,5 +91,3 @@
 - Annual cost projection 📈
 
 ---
-
-✅ **Non-Misc Addendum:** Implement midterm/EOT via simple pipeline appendage at report time.
