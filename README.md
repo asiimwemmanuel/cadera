@@ -1,53 +1,55 @@
-## 🗂️ GENERAL
+# Cadera — Student Information System (SIS)
 
-### 📘 Overview
+Cadera is a modern, modular **Student Information System (SIS)** designed to streamline student data management, academic performance tracking, and report generation. Built for scalability and usability, it allows administrators, teachers, and students to interact with academic data efficiently.
 
-**Cadera** is a modern, modular **Student Information System (SIS)** that automates the management of student data, reports, and academic performance. Designed for scalability and clarity, it enables seamless collaboration between administrators, teachers, and students.
+## 🚀 Project Status
 
----
+🛠️ **In Development** — Cadera is actively being developed to improve how schools manage student data.
 
-### 🚦 Project Status
-
-**In Development** — Core features under active build and internal testing.
-
----
-
-### 👥 Team
+## 👨‍💻 Built By
 
 - **Joshua Mukisa** — Frontend Engineer
-- **Emmanuel Asiimwe** — Backend & Database Architect
+- **Emmanuel Asiimwe** — Backend Developer & Database Architect
 - **Albert Jordan** — UI/UX Designer
 
----
+## 🏫 Key Features
 
-### 🎯 Capabilities
+- 📊 **Dynamic Report Generation**
+- 🏫 **Class & Subject Management**
+- 🔐 **Role-Based Access Control** (Admin, Teacher, Student)
+- 📥 **Exportable Report Cards** (PDF, Excel)
+- 🔍 **Search & Filter Functionality**
+- 💻 **Responsive UI**
 
-- Manage student and teacher profiles
-- Assign students to classes, subjects
-- Track academic performance
-- Generate printable report cards
-- Role-based access: Admin, Teacher, Student
-- Export data (PDF, CSV/Excel)
-- Audit and validate historical academic records
+## 🧱 Tech Stack
 
----
+- **Frontend:** React.js, Tailwind CSS
+- **Backend:** NestJS (modular architecture, TypeScript)
+- **Database:** PostgreSQL (managed via Prisma)
+- **Authentication:** JWT (JSON Web Tokens)
+- **Tools:** Git, GitHub, REST APIs, Postman, Figma (UI/UX)
 
-### 🔧 Shared Stack
+## 📂 Submodule READMEs
 
-| Layer    | Tech                          |
-| -------- | ----------------------------- |
-| Frontend | React, Tailwind CSS           |
-| Backend  | NestJS, Prisma                |
-| Auth     | JWT (stateless)               |
-| Database | PostgreSQL, Supabase          |
-| Tooling  | Git, REST API, Postman, Figma |
+This project is divided into two main parts: the **frontend** and the **backend**. Below are the links to detailed documentation for each component:
 
----
+- [Backend README](./backend/README.md) — Backend setup, architecture, and API design.
+- [Frontend README](./frontend/README.md) — Frontend setup, component structure, and UI design.
 
-### 🌐 Hosting
+## 📌 Getting Started
 
-| Component | Platform | Details                |
-| --------- | -------- | ---------------------- |
-| Frontend  | Vercel   | Static site deployment |
-| Backend   | Railway  | Managed Node.js server |
-| Database  | Supabase | Hosted PostgreSQL      |
+To run the project locally:
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/YOUR-USERNAME/cadera.git
+   ```
+
+2. Install dependencies for both frontend and backend (instructions below in their respective submodule READMEs).
+
+3. Start the development server:
+   - Frontend: `npm run dev` (from the `frontend/` directory)
+   - Backend: `npm run start:dev` (from the `backend/` directory)
+
+For more detailed setup, refer to the respective submodule README files.
