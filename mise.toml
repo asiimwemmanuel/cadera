@@ -15,8 +15,4 @@ dir = "cadera-frontend"
 
 [tasks.dev]
 description = "Start both backend & frontend servers"
-run = [
-  { task = "backend" },
-  { task = "frontend" }
-]
-
+run = "bun run start"

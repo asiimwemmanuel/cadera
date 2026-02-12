@@ -1,0 +1,8 @@
+{
+	"scripts": {
+		"start": "bunx conc \"bun run --cwd cadera-backend start:dev\" \"bun run --cwd cadera-frontend  dev\""
+	},
+	"devDependencies": {
+		"concurrently": "^9.2.1"
+	}
+}
