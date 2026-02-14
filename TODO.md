@@ -10,12 +10,13 @@
   - Mid + end → final = average
   - Otherwise → final = null
 
-- **Redesign reports template:** comment limit 50 words.
+- **Redesign reports template:** comment limit 50 words. - done
 
 ---
 
 ## 🐛 BUGFIXES
 
+- Report dropdown to access archived data (EA)
 - Performance overview div (main page) — ✅ done.
 - Review UX for data/table labels. - ✅ done
 - Performance overview charts. - ✅ done
@@ -26,8 +27,13 @@
 
 ## 🚀 FUTURE / NON-MVP
 
+- MTA implementation (EA)
+  - new subject merchant (ID, name, subscription mechanism)
 - Access archived students (target pre-Jan '26).
 - Add account name to report logs.
+- Do a code review
+- Develop langing page (AM \* JM)
+- write documentation for backend (EA)
 
 ---
 
@@ -86,7 +92,6 @@
 
 ## 🏗️ Hosting Planning
 
-- OnRender deployment 🌐
 - DB + server monthly cost 💰
 - Annual cost projection 📈
 
