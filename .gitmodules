@@ -1,6 +1,6 @@
 [submodule "cadera-backend"]
-	path = cadera-backend
+	path = apps/cadera-backend
 	url = git@github-cadera-backend:asiimwemmanuel/Cadera-backend.git
 [submodule "cadera-frontend"]
-	path = cadera-frontend
+	path = apps/cadera-frontend
 	url = git@github-cadera-frontend:Josh-The-Developapa/Cadera-frontend.git
