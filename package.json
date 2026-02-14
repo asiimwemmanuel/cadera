@@ -1,8 +1,22 @@
 {
+	"name": "cadera",
+	"version": "0.0.1",
+	"private": true,
+	"workspaces": [
+		"apps/*"
+	],
 	"scripts": {
-		"start": "bunx conc \"bun run --cwd cadera-backend start:dev\" \"bun run --cwd cadera-frontend  dev\""
-	},
-	"devDependencies": {
-		"concurrently": "^9.2.1"
+		"dev": "bun run dev --workspaces",
+		"dev:backend": "bun run --filter cadera-backend dev",
+		"dev:frontend": "bun run --filter cadera-frontend dev",
+		"build": "bun run --filter '*' build",
+		"build:backend": "bun run --filter cadera-backend build",
+		"build:frontend": "bun run --filter cadera-frontend build",
+		"start": "bun run --filter '*' start",
+		"start:backend": "bun run --filter cadera-backend start",
+		"lint": "bun run --filter '*' lint",
+		"lint:fix": "bun run --filter '*' lint:fix",
+		"test": "bun run --filter cadera-backend test",
+		"clean": "bun run --filter '*' clean && rm -rf node_modules bun.lock"
 	}
 }
