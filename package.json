@@ -1,12 +1,12 @@
 {
 	"name": "cadera",
-	"version": "0.0.1",
+	"version": "1.0.0",
 	"private": true,
 	"workspaces": [
 		"apps/*"
 	],
 	"scripts": {
-		"dev": "bun run dev --workspaces",
+		"dev": "bun run --filter cadera-backend dev & bun run --filter cadera-frontend dev",
 		"dev:backend": "bun run --filter cadera-backend dev",
 		"dev:frontend": "bun run --filter cadera-frontend dev",
 		"build": "bun run --filter '*' build",
