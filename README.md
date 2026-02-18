@@ -37,8 +37,8 @@ Built for scalability and usability, it allows administrators & teachers to inte
 
 ## Submodule READMEs
 
-- [Backend README](./backend/README.md) — Backend setup, architecture, and API design.
-- [Frontend README](./frontend/README.md) — Frontend setup, component structure, and UI design.
+- [Backend README](./apps/backend/README.md) — Backend setup, architecture, and API design.
+- [Frontend README](./apps/frontend/README.md) — Frontend setup, component structure, and UI design.
 
 ## Getting Started
 
