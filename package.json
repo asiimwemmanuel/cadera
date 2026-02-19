@@ -9,6 +9,8 @@
 		"dev": "bun run --filter cadera-backend dev & bun run --filter cadera-frontend dev",
 		"dev:backend": "bun run --filter cadera-backend dev",
 		"dev:frontend": "bun run --filter cadera-frontend dev",
+		"db:up": "bun run --filter cadera-backend db:up",
+		"db:down": "bun run --filter cadera-backend db:down",
 		"build": "bun run --filter '*' build",
 		"build:backend": "bun run --filter cadera-backend build",
 		"build:frontend": "bun run --filter cadera-frontend build",
