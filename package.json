@@ -20,5 +20,9 @@
 		"lint:fix": "bun run --filter '*' lint:fix",
 		"test": "bun run --filter cadera-backend test",
 		"clean": "bun run --filter '*' clean && rm -rf node_modules bun.lock"
+	},
+	"dependencies": {
+		"@prisma/client": "^7.4.1",
+		"prisma": "^7.4.1"
 	}
 }
