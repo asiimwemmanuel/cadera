@@ -1,4 +1,0 @@
-[tools]
-bun = "1.2.21"
-
-# add ts-eslint pinning INSIDE THE package.json, NOT HERE.
