@@ -11,6 +11,8 @@
 		"dev:frontend": "bun run --filter cadera-frontend dev",
 		"db:up": "bun run --filter cadera-backend db:up",
 		"db:down": "bun run --filter cadera-backend db:down",
+		"format": "bun run --filter cadera-backend format & bun run --filter cadera-frontend format",
+		"format:check": "bun run --filter cadera-backend format:check & bun run --filter cadera-frontend format:check",
 		"build": "bun run --filter '*' build",
 		"build:backend": "bun run --filter cadera-backend build",
 		"build:frontend": "bun run --filter cadera-frontend build",
@@ -23,6 +25,7 @@
 	},
 	"dependencies": {
 		"@prisma/client": "^7.4.1",
+		"@react-pdf/renderer": "^4.3.2",
 		"prisma": "^7.4.1"
 	}
 }
